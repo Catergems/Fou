@@ -2,9 +2,7 @@
   "required": true,
   "package": "com.fou.client.mixin",
   "compatibilityLevel": "JAVA_21",
-  "client": [
-    "CycleTotemPopMixin"
-  ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }
