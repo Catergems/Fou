@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " G ",
+    "GTG",
+    " G "
+  ],
+  "key": {
+    "G": { "item": "minecraft:glowstone" },
+    "T": { "item": "minecraft:totem_of_undying" }
+  },
+  "result": {
+    "id": "fou:totem_of_cycle",
+    "count": 1
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "fou",
+  "version": "${version}",
+  "name": "Future of Utility",
+  "description": "Future of Utility ( I dont like this grammar :/ )",
+  "authors": ["admin"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/future-of-ulity/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "com.fou.FouMod"
+      }
+    ],
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "com.fou.client.FutureOfUlityClient"
+      }
+    ]
+  },
+  "mixins": [
+    "future-of-ulity.mixins.json",
+    {
+      "config": "future-of-ulity.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${fabric_kotlin_version}",
+    "fabric-api": ">=${fabric_api_version}",
+    "minecraft": "~1.21.11"
+  }
+}

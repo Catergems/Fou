@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "IAI",
+    "GCG",
+    "SSS"
+  ],
+  "key": {
+    "I": { "item": "minecraft:iron_ingot" },
+    "A": { "item": "minecraft:anvil" },
+    "G": { "item": "minecraft:glowstone_dust" },
+    "C": { "item": "minecraft:crafting_table" },
+    "S": { "item": "minecraft:smooth_stone" }
+  },
+  "result": {
+    "id": "fou:repair_station",
+    "count": 1
+  }
+}
