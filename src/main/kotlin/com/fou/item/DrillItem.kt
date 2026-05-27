@@ -1,6 +1,7 @@
 package com.fou.item
 
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags
+import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.entity.LivingEntity
 import net.minecraft.item.Item
@@ -9,6 +10,7 @@ import net.minecraft.item.ToolMaterial
 import net.minecraft.registry.tag.BlockTags
 import net.minecraft.registry.tag.ItemTags
 import net.minecraft.server.network.ServerPlayerEntity
+import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.world.World
@@ -31,7 +33,6 @@ class DrillItem(settings: Settings) : Item(
 ) {
     companion object {
         private const val VEIN_LIMIT = 32
-        // Prevents postMine from recursing when breaking extra blocks
         private val IS_BREAKING = ThreadLocal.withInitial { false }
     }
 
@@ -44,14 +45,14 @@ class DrillItem(settings: Settings) : Item(
         pos: BlockPos,
         miner: LivingEntity
     ): Boolean {
-        // Guard: skip if we're already inside a drill break cycle
         if (IS_BREAKING.get()) return super.postMine(stack, world, state, pos, miner)
-        if (world.isClient || miner !is ServerPlayerEntity) return super.postMine(stack, world, state, pos, miner)
+        if (world.isClient || miner !is ServerPlayerEntity || world !is ServerWorld)
+            return super.postMine(stack, world, state, pos, miner)
 
         IS_BREAKING.set(true)
         try {
             if (state.isIn(ConventionalBlockTags.ORES)) {
-                veinMine(world, pos, state, miner)
+                veinMine(world, pos, state, miner, stack)
             } else {
                 val facing = getActualFacing(miner)
                 get3x3Positions(pos, facing).forEach { affectedPos ->
@@ -59,7 +60,7 @@ class DrillItem(settings: Settings) : Item(
                     if (affectedState.isIn(ConventionalBlockTags.ORES)) return@forEach
                     if (affectedState.isIn(BlockTags.FEATURES_CANNOT_REPLACE)) return@forEach
                     if (affectedState.isAir || affectedState.getHardness(world, affectedPos) < 0f) return@forEach
-                    miner.interactionManager.tryBreakBlock(affectedPos)
+                    breakWithDrops(world, affectedPos, affectedState, miner, stack)
                 }
             }
         } finally {
@@ -69,7 +70,27 @@ class DrillItem(settings: Settings) : Item(
         return super.postMine(stack, world, state, pos, miner)
     }
 
-    private fun veinMine(world: World, origin: BlockPos, originState: BlockState, miner: ServerPlayerEntity) {
+    // Break block and drop items respecting tool enchantments (fortune, silk touch)
+    private fun breakWithDrops(
+        world: ServerWorld,
+        pos: BlockPos,
+        state: BlockState,
+        player: ServerPlayerEntity,
+        stack: ItemStack
+    ) {
+        val blockEntity = world.getBlockEntity(pos)
+        state.block.onBreak(world, pos, state, player)
+        world.removeBlock(pos, false)
+        state.block.afterBreak(world, player, pos, state, blockEntity, stack)
+    }
+
+    private fun veinMine(
+        world: ServerWorld,
+        origin: BlockPos,
+        originState: BlockState,
+        miner: ServerPlayerEntity,
+        stack: ItemStack
+    ) {
         val visited = mutableSetOf<BlockPos>()
         val queue   = ArrayDeque<BlockPos>()
         queue.add(origin)
@@ -89,7 +110,10 @@ class DrillItem(settings: Settings) : Item(
             }
         }
 
-        visited.filter { it != origin }.forEach { miner.interactionManager.tryBreakBlock(it) }
+        visited.filter { it != origin }.forEach { orePos ->
+            val oreState = world.getBlockState(orePos)
+            breakWithDrops(world, orePos, oreState, miner, stack)
+        }
     }
 
     private fun getActualFacing(miner: ServerPlayerEntity): Direction = when {
