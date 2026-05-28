@@ -9,11 +9,10 @@
   },
   "parent": "fou:chisel",
   "criteria": {
-    "chisel_deepslate": {
-      "trigger": "minecraft:item_used_on_block",
+    "has_chiseled_deepslate": {
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "item": { "items": "fou:chisel" },
-        "location": { "block": { "blocks": "minecraft:chiseled_deepslate" } }
+        "items": [{ "items": "minecraft:chiseled_deepslate" }]
       }
     }
   }

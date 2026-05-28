@@ -10,11 +10,21 @@
   "parent": "fou:drill",
   "criteria": {
     "mine_diamond_ore": {
-      "trigger": "minecraft:item_used_on_block",
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {}
+    },
+    "has_drill": {
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "item": { "items": "fou:drill" },
-        "location": { "block": { "tag": "minecraft:diamond_ores" } }
+        "items": [{ "items": "fou:drill" }]
+      }
+    },
+    "mine_ore": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "items": "minecraft:diamond" }]
       }
     }
-  }
+  },
+  "requirements": [["mine_ore", "has_drill"]]
 }

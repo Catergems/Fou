@@ -7,10 +7,10 @@
     "III"
   ],
   "key": {
-    "G": { "item": "minecraft:gold_ingot" },
-    "B": { "item": "minecraft:iron_block" },
-    "P": { "item": "minecraft:diamond_pickaxe" },
-    "I": { "item": "minecraft:iron_ingot" }
+    "G": "minecraft:gold_ingot",
+    "B": "minecraft:iron_block",
+    "P": "minecraft:diamond_pickaxe",
+    "I": "minecraft:iron_ingot"
   },
   "result": {
     "id": "fou:drill",

@@ -7,7 +7,7 @@
     "I  "
   ],
   "key": {
-    "I": { "item": "minecraft:stick" }
+    "I": "minecraft:stick"
   },
   "result": {
     "id": "fou:leaf_shear",

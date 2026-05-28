@@ -9,12 +9,18 @@
   },
   "parent": "fou:leaf_shear",
   "criteria": {
-    "shear_leaves": {
-      "trigger": "minecraft:item_used_on_block",
+    "shear_and_get_leaves": {
+      "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "item": { "items": "fou:leaf_shear" },
-        "location": { "block": { "tag": "minecraft:leaves" } }
+        "items": [{ "items": "#minecraft:leaves" }]
+      }
+    },
+    "has_leaf_shear": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "items": "fou:leaf_shear" }]
       }
     }
-  }
+  },
+  "requirements": [["shear_and_get_leaves", "has_leaf_shear"]]
 }

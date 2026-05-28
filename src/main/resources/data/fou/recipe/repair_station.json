@@ -7,11 +7,11 @@
     "SSS"
   ],
   "key": {
-    "I": { "item": "minecraft:iron_ingot" },
-    "A": { "item": "minecraft:anvil" },
-    "G": { "item": "minecraft:glowstone_dust" },
-    "C": { "item": "minecraft:crafting_table" },
-    "S": { "item": "minecraft:smooth_stone" }
+    "I": "minecraft:iron_ingot",
+    "A": "minecraft:anvil",
+    "G": "minecraft:glowstone_dust",
+    "C": "minecraft:crafting_table",
+    "S": "minecraft:smooth_stone"
   },
   "result": {
     "id": "fou:repair_station",
