@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": { "id": "minecraft:chiseled_stone_bricks" },
+    "title": { "translate": "advancement.fou.chisel_master.title" },
+    "description": { "translate": "advancement.fou.chisel_master.desc" },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fou:chisel",
+  "criteria": {
+    "chisel_deepslate": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "item": { "items": "fou:chisel" },
+        "location": { "block": { "blocks": "minecraft:chiseled_deepslate" } }
+      }
+    }
+  }
+}

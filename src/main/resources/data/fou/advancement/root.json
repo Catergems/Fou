@@ -1,0 +1,18 @@
+{
+  "display": {
+    "icon": { "id": "fou:repair_station" },
+    "title": { "translate": "advancement.fou.root.title" },
+    "description": { "translate": "advancement.fou.root.desc" },
+    "background": "minecraft:textures/block/stone.png",
+    "show_toast": false,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "get_any_fou_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "items": "#fou:items" }]
+      }
+    }
+  }
+}

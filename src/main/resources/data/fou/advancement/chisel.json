@@ -1,0 +1,19 @@
+{
+  "display": {
+    "icon": { "id": "fou:chisel" },
+    "title": { "translate": "advancement.fou.chisel.title" },
+    "description": { "translate": "advancement.fou.chisel.desc" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fou:root",
+  "criteria": {
+    "get_chisel": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "items": "fou:chisel" }]
+      }
+    }
+  }
+}

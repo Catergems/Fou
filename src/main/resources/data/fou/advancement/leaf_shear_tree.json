@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": { "id": "minecraft:oak_leaves" },
+    "title": { "translate": "advancement.fou.leaf_shear_tree.title" },
+    "description": { "translate": "advancement.fou.leaf_shear_tree.desc" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fou:leaf_shear",
+  "criteria": {
+    "shear_leaves": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "item": { "items": "fou:leaf_shear" },
+        "location": { "block": { "tag": "minecraft:leaves" } }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "display": {
+    "icon": { "id": "fou:drill" },
+    "title": { "translate": "advancement.fou.drill_ore.title" },
+    "description": { "translate": "advancement.fou.drill_ore.desc" },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fou:drill",
+  "criteria": {
+    "mine_diamond_ore": {
+      "trigger": "minecraft:item_used_on_block",
+      "conditions": {
+        "item": { "items": "fou:drill" },
+        "location": { "block": { "tag": "minecraft:diamond_ores" } }
+      }
+    }
+  }
+}

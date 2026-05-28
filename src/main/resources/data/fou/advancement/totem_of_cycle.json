@@ -1,0 +1,19 @@
+{
+  "display": {
+    "icon": { "id": "fou:totem_of_cycle" },
+    "title": { "translate": "advancement.fou.totem_of_cycle.title" },
+    "description": { "translate": "advancement.fou.totem_of_cycle.desc" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fou:root",
+  "criteria": {
+    "get_totem": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "items": "fou:totem_of_cycle" }]
+      }
+    }
+  }
+}

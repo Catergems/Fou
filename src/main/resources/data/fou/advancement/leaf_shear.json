@@ -1,0 +1,19 @@
+{
+  "display": {
+    "icon": { "id": "fou:leaf_shear" },
+    "title": { "translate": "advancement.fou.leaf_shear.title" },
+    "description": { "translate": "advancement.fou.leaf_shear.desc" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "fou:root",
+  "criteria": {
+    "get_leaf_shear": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "items": "fou:leaf_shear" }]
+      }
+    }
+  }
+}
