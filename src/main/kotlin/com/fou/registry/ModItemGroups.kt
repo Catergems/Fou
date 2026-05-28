@@ -20,6 +20,7 @@ object ModItemGroups {
                 entries.add(ModItems.REPAIR_STATION)
                 entries.add(ModItems.TOTEM_OF_CYCLE)
                 entries.add(ModItems.DRILL)
+                entries.add(ModItems.CHISEL)
             }
             .build()
     )
