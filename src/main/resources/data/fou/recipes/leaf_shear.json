@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "  I",
+    " I ",
+    "I  "
+  ],
+  "key": {
+    "I": { "item": "minecraft:stick" }
+  },
+  "result": {
+    "id": "fou:leaf_shear",
+    "count": 1
+  }
+}
