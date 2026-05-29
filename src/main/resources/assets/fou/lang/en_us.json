@@ -1,6 +1,8 @@
 {
   "block.fou.repair_station": "Repair Station",
+  "block.fou.power_generator": "Power Generator",
   "item.fou.repair_station": "Repair Station",
+  "item.fou.power_generator": "Power Generator",
   "item.fou.totem_of_cycle": "Totem of Cycle",
   "item.fou.drill": "Drill",
   "item.fou.chisel": "Chisel",
@@ -9,28 +11,20 @@
 
   "advancement.fou.root.title": "Future of Utility",
   "advancement.fou.root.desc": "Getting started with utility tools",
-
   "advancement.fou.repair_station.title": "Self-Service",
   "advancement.fou.repair_station.desc": "Obtain a Repair Station",
-
   "advancement.fou.totem_of_cycle.title": "Tomorrow or next day",
   "advancement.fou.totem_of_cycle.desc": "Obtain a Totem of Cycle",
-
   "advancement.fou.drill.title": "Heavy Machinery",
   "advancement.fou.drill.desc": "Obtain a Drill",
-
   "advancement.fou.drill_ore.title": "Vein Hunter",
   "advancement.fou.drill_ore.desc": "Use the Drill to mine a diamond ore vein",
-
   "advancement.fou.chisel.title": "Chiseling",
   "advancement.fou.chisel.desc": "Obtain a Chisel",
-
   "advancement.fou.chisel_master.title": "Master Sculptor",
   "advancement.fou.chisel_master.desc": "Chisel your way to a Chiseled Deepslate",
-
   "advancement.fou.leaf_shear.title": "Leaf Remover",
   "advancement.fou.leaf_shear.desc": "Obtain a Leaf Shear",
-
   "advancement.fou.leaf_shear_tree.title": "Removed leaf",
   "advancement.fou.leaf_shear_tree.desc": "Strip an entire tree of its leaves in one swing"
 }

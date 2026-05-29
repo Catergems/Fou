@@ -27,6 +27,10 @@ object ModItems {
         DrillItem(settings.maxCount(1))
     }
 
+    val POWER_GENERATOR: Item = register("power_generator") { settings ->
+        BlockItem(ModBlocks.POWER_GENERATOR, settings)
+    }
+
     val CHISEL: Item = register("chisel") { settings ->
         ChiselItem(settings.maxCount(1).maxDamage(256))
     }
