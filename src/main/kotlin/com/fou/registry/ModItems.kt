@@ -48,6 +48,10 @@ object ModItems {
         LinkerItem(settings.maxCount(1))
     }
 
+    val CRUSHER: Item = register("crusher") { settings ->
+        BlockItem(ModBlocks.CRUSHER, settings)
+    }
+
     private fun register(name: String, itemFactory: (Item.Settings) -> Item): Item {
         val id = Identifier.of(FouMod.MOD_ID, name)
         val key = RegistryKey.of(RegistryKeys.ITEM, id)

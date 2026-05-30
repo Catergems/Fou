@@ -1,6 +1,7 @@
 package com.fou.registry
 
 import com.fou.FouMod
+import com.fou.block.CrusherBlock
 import com.fou.block.PowerGeneratorBlock
 import com.fou.block.RepairStationBlock
 import com.fou.block.VoltageStabilizerBlock
@@ -25,6 +26,10 @@ object ModBlocks {
 
     val VOLTAGE_STABILIZER: Block = register("voltage_stabilizer") { settings ->
         VoltageStabilizerBlock(settings.strength(3.0f, 6.0f).sounds(BlockSoundGroup.METAL).requiresTool())
+    }
+
+    val CRUSHER: Block = register("crusher") { settings ->
+        CrusherBlock(settings.strength(4.0f, 6.0f).sounds(BlockSoundGroup.METAL).requiresTool())
     }
 
     private fun register(name: String, blockFactory: (AbstractBlock.Settings) -> Block): Block {

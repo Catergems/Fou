@@ -1,6 +1,7 @@
 package com.fou.registry
 
 import com.fou.FouMod
+import com.fou.blockentity.CrusherBlockEntity
 import com.fou.blockentity.PowerGeneratorBlockEntity
 import com.fou.blockentity.RepairStationBlockEntity
 import com.fou.blockentity.VoltageStabilizerBlockEntity
@@ -25,6 +26,11 @@ object ModBlockEntities {
     val VOLTAGE_STABILIZER: BlockEntityType<VoltageStabilizerBlockEntity> = register(
         "voltage_stabilizer",
         FabricBlockEntityTypeBuilder.create(::VoltageStabilizerBlockEntity, ModBlocks.VOLTAGE_STABILIZER).build()
+    )
+
+    val CRUSHER: BlockEntityType<CrusherBlockEntity> = register(
+        "crusher",
+        FabricBlockEntityTypeBuilder.create(::CrusherBlockEntity, ModBlocks.CRUSHER).build()
     )
 
     private fun <T : net.minecraft.block.entity.BlockEntity> register(

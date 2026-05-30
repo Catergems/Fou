@@ -1,0 +1,1 @@
+{ "variants": { "facing=north": { "model": "fou:block/crusher" }, "facing=south": { "model": "fou:block/crusher", "y": 180 }, "facing=east": { "model": "fou:block/crusher", "y": 90 }, "facing=west": { "model": "fou:block/crusher", "y": 270 } } }

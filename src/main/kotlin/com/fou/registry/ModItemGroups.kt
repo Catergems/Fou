@@ -20,7 +20,7 @@ object ModItemGroups {
                 entries.add(ModItems.REPAIR_STATION)
                 entries.add(ModItems.POWER_GENERATOR)
                 entries.add(ModItems.VOLTAGE_STABILIZER)
-                entries.add(ModItems.LINKER)
+                entries.add(ModItems.CRUSHER)
                 entries.add(ModItems.TOTEM_OF_CYCLE)
                 entries.add(ModItems.DRILL)
                 entries.add(ModItems.CHISEL)
