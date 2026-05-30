@@ -1,8 +1,10 @@
 {
   "block.fou.repair_station": "Repair Station",
   "block.fou.power_generator": "Power Generator",
+  "block.fou.voltage_stabilizer": "Voltage Stabilizer",
   "item.fou.repair_station": "Repair Station",
   "item.fou.power_generator": "Power Generator",
+  "item.fou.voltage_stabilizer": "Voltage Stabilizer",
   "item.fou.totem_of_cycle": "Totem of Cycle",
   "item.fou.drill": "Drill",
   "item.fou.chisel": "Chisel",

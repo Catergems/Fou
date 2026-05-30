@@ -34,6 +34,7 @@
     "fabricloader": ">=${loader_version}",
     "fabric-language-kotlin": ">=${fabric_kotlin_version}",
     "fabric-api": ">=${fabric_api_version}",
+    "owo": ">=0.13.0",
     "minecraft": "~1.21.11"
   }
 }

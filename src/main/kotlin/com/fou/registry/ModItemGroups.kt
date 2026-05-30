@@ -19,6 +19,7 @@ object ModItemGroups {
             .entries { _, entries ->
                 entries.add(ModItems.REPAIR_STATION)
                 entries.add(ModItems.POWER_GENERATOR)
+                entries.add(ModItems.VOLTAGE_STABILIZER)
                 entries.add(ModItems.TOTEM_OF_CYCLE)
                 entries.add(ModItems.DRILL)
                 entries.add(ModItems.CHISEL)

@@ -31,6 +31,10 @@ object ModItems {
         BlockItem(ModBlocks.POWER_GENERATOR, settings)
     }
 
+    val VOLTAGE_STABILIZER: Item = register("voltage_stabilizer") { settings ->
+        BlockItem(ModBlocks.VOLTAGE_STABILIZER, settings)
+    }
+
     val CHISEL: Item = register("chisel") { settings ->
         ChiselItem(settings.maxCount(1).maxDamage(256))
     }

@@ -3,6 +3,7 @@ package com.fou.registry
 import com.fou.FouMod
 import com.fou.block.PowerGeneratorBlock
 import com.fou.block.RepairStationBlock
+import com.fou.block.VoltageStabilizerBlock
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Block
 import net.minecraft.registry.Registries
@@ -15,21 +16,15 @@ import net.minecraft.util.Identifier
 object ModBlocks {
 
     val REPAIR_STATION: Block = register("repair_station") { settings ->
-        RepairStationBlock(
-            settings
-                .strength(3.5f, 6.0f)
-                .sounds(BlockSoundGroup.METAL)
-                .requiresTool()
-        )
+        RepairStationBlock(settings.strength(3.5f, 6.0f).sounds(BlockSoundGroup.METAL).requiresTool())
     }
 
     val POWER_GENERATOR: Block = register("power_generator") { settings ->
-        PowerGeneratorBlock(
-            settings
-                .strength(3.5f, 6.0f)
-                .sounds(BlockSoundGroup.METAL)
-                .requiresTool()
-        )
+        PowerGeneratorBlock(settings.strength(3.5f, 6.0f).sounds(BlockSoundGroup.METAL).requiresTool())
+    }
+
+    val VOLTAGE_STABILIZER: Block = register("voltage_stabilizer") { settings ->
+        VoltageStabilizerBlock(settings.strength(3.0f, 6.0f).sounds(BlockSoundGroup.METAL).requiresTool())
     }
 
     private fun register(name: String, blockFactory: (AbstractBlock.Settings) -> Block): Block {

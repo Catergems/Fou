@@ -24,6 +24,8 @@ loom {
 repositories {
     mavenCentral()
     maven("https://maven.fabricmc.net/")
+    maven("https://maven.wispforest.io/releases")
+    maven("https://jitpack.io")
 }
 
 dependencies {
@@ -33,6 +35,7 @@ dependencies {
 
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_api_version")}")
     modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("fabric_kotlin_version")}")
+    modImplementation("io.wispforest:owo-lib:${project.property("owo_version")}")
 }
 
 tasks.processResources {

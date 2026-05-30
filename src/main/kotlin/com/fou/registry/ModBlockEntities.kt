@@ -3,6 +3,7 @@ package com.fou.registry
 import com.fou.FouMod
 import com.fou.blockentity.PowerGeneratorBlockEntity
 import com.fou.blockentity.RepairStationBlockEntity
+import com.fou.blockentity.VoltageStabilizerBlockEntity
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.registry.Registries
@@ -19,6 +20,11 @@ object ModBlockEntities {
     val POWER_GENERATOR: BlockEntityType<PowerGeneratorBlockEntity> = register(
         "power_generator",
         FabricBlockEntityTypeBuilder.create(::PowerGeneratorBlockEntity, ModBlocks.POWER_GENERATOR).build()
+    )
+
+    val VOLTAGE_STABILIZER: BlockEntityType<VoltageStabilizerBlockEntity> = register(
+        "voltage_stabilizer",
+        FabricBlockEntityTypeBuilder.create(::VoltageStabilizerBlockEntity, ModBlocks.VOLTAGE_STABILIZER).build()
     )
 
     private fun <T : net.minecraft.block.entity.BlockEntity> register(

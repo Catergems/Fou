@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "fou:block/voltage_stabilizer" },
+    "facing=south": { "model": "fou:block/voltage_stabilizer", "y": 180 },
+    "facing=east":  { "model": "fou:block/voltage_stabilizer", "y": 90 },
+    "facing=west":  { "model": "fou:block/voltage_stabilizer", "y": 270 }
+  }
+}
