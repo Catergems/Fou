@@ -9,10 +9,6 @@
   },
   "parent": "fou:drill",
   "criteria": {
-    "mine_diamond_ore": {
-      "trigger": "minecraft:player_hurt_entity",
-      "conditions": {}
-    },
     "has_drill": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -26,5 +22,5 @@
       }
     }
   },
-  "requirements": [["mine_ore", "has_drill"]]
+  "requirements": [["has_drill"], ["mine_ore"]]
 }
