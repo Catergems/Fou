@@ -1,6 +1,8 @@
 package com.fou.item
 
 import com.fou.blockentity.PowerGeneratorBlockEntity
+import com.fou.blockentity.VoltageStabilizerBlockEntity
+import net.minecraft.block.entity.BlockEntity
 import net.minecraft.component.DataComponentTypes
 import net.minecraft.component.type.NbtComponent
 import net.minecraft.entity.player.PlayerEntity
@@ -34,14 +36,16 @@ class LinkerItem(settings: Settings) : Item(settings) {
 
         val be = world.getBlockEntity(pos)
 
-        // ── First click: select source (must be PowerGenerator) ──────────────
+        // ── First click: select source (Generator or Stabilizer) ─────────────
         if (!hasSource(stack)) {
-            if (be !is PowerGeneratorBlockEntity) {
-                player.sendMessage(Text.literal("§cFirst click must be on a Power Generator!"), true)
+            val isValidSource = be is PowerGeneratorBlockEntity || be is VoltageStabilizerBlockEntity
+            if (!isValidSource) {
+                player.sendMessage(Text.literal("§cFirst click must be on a Power Generator or Voltage Stabilizer!"), true)
                 return ActionResult.FAIL
             }
             setSource(stack, pos)
-            player.sendMessage(Text.literal("§aSource selected! §7Now click the target machine."), true)
+            val name = if (be is PowerGeneratorBlockEntity) "Generator" else "Stabilizer"
+            player.sendMessage(Text.literal("§a$name selected! §7Now click the target machine."), true)
             return ActionResult.SUCCESS
         }
 
@@ -60,25 +64,27 @@ class LinkerItem(settings: Settings) : Item(settings) {
         }
 
         val sourceEntity = world.getBlockEntity(sourcePos)
-        if (sourceEntity !is PowerGeneratorBlockEntity) {
+        val isValidSource = sourceEntity is PowerGeneratorBlockEntity || sourceEntity is VoltageStabilizerBlockEntity
+        if (!isValidSource) {
             player.sendMessage(Text.literal("§cSource block is no longer valid!"), true)
             clearSource(stack)
             return ActionResult.FAIL
         }
 
-        // Target must have a block entity (any machine)
         if (world.getBlockEntity(pos) == null) {
             player.sendMessage(Text.literal("§cTarget must be a machine block!"), true)
             return ActionResult.FAIL
         }
 
-        sourceEntity.addLinkedPos(pos)
-        sourceEntity.markDirty()
+        when (sourceEntity) {
+            is PowerGeneratorBlockEntity -> sourceEntity.addLinkedPos(pos)
+            is VoltageStabilizerBlockEntity -> sourceEntity.addLinkedPos(pos)
+        }
+        (sourceEntity as BlockEntity).markDirty()
         clearSource(stack)
 
-        player.sendMessage(
-            Text.literal("§aLinked! §7Generator §f$sourcePos §7→ §fblock $pos"), true
-        )
+        val sourceName = if (sourceEntity is PowerGeneratorBlockEntity) "Generator" else "Stabilizer"
+        player.sendMessage(Text.literal("§aLinked! §7$sourceName §f$sourcePos §7→ §fblock $pos"), true)
         return ActionResult.SUCCESS
     }
 

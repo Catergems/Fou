@@ -14,54 +14,50 @@ class VoltageStabilizerBlockEntity(
     state: BlockState
 ) : BlockEntity(ModBlockEntities.VOLTAGE_STABILIZER, pos, state) {
 
-    // Set voltage (0-240W), configured via owo-lib GUI slider
     var targetVoltage: Float = 0f
-
-    // Input power from linked generator this tick
     var inputWatts: Float = 0f
 
-    // Output power (equals targetVoltage if input >= target, else 0)
     val outputWatts: Float
-        get() = if (inputWatts >= targetVoltage) targetVoltage else 0f
+        get() = if (inputWatts >= targetVoltage && targetVoltage > 0f) targetVoltage else 0f
 
-    val isActive: Boolean
-        get() = outputWatts > 0f
+    val isActive: Boolean get() = outputWatts > 0f
 
-    // Heat (0-1000): builds when input >> target (excess energy)
     var heat: Float = 0f
         private set
 
     val heatPercent: Float get() = heat / PowerConstants.HEAT_MAX.toFloat()
 
-    fun addHeat(amount: Float) {
-        heat = (heat + amount).coerceAtMost(PowerConstants.HEAT_MAX.toFloat())
-    }
+    // ── Linked downstream machines ───────────────────────────────────────────
+    val linkedPositions: MutableList<BlockPos> = mutableListOf()
 
-    fun coolDown(amount: Float) {
-        heat = (heat - amount).coerceAtLeast(0f)
-    }
+    fun addLinkedPos(pos: BlockPos) { if (!linkedPositions.contains(pos)) linkedPositions.add(pos) }
+    fun removeLinkedPos(pos: BlockPos) { linkedPositions.remove(pos) }
 
+    fun addHeat(amount: Float) { heat = (heat + amount).coerceAtMost(PowerConstants.HEAT_MAX.toFloat()) }
+    fun coolDown(amount: Float) { heat = (heat - amount).coerceAtLeast(0f) }
     fun isExploding(): Boolean = heat >= PowerConstants.HEAT_EXPLODE
 
-    // ── Serialization ────────────────────────────────────────────────────────
     override fun readData(view: ReadView) {
         super.readData(view)
         targetVoltage = view.getFloat("TargetVoltage", 0f)
         heat          = view.getFloat("Heat", 0f)
+        linkedPositions.clear()
+        view.getOptionalTypedListView("LinkedPositions", BlockPos.CODEC)
+            .ifPresent { it.forEach { pos -> linkedPositions.add(pos) } }
     }
 
     override fun writeData(view: WriteView) {
         super.writeData(view)
         view.putFloat("TargetVoltage", targetVoltage)
         view.putFloat("Heat", heat)
+        val appender = view.getListAppender("LinkedPositions", BlockPos.CODEC)
+        linkedPositions.forEach { appender.add(it) }
     }
 
-    // ── Server tick ──────────────────────────────────────────────────────────
     companion object {
         fun tick(world: World, pos: BlockPos, state: BlockState, be: VoltageStabilizerBlockEntity) {
             if (world.isClient) return
 
-            // Heat builds when input is higher than target (excess being throttled)
             val excess = (be.inputWatts - be.targetVoltage).coerceAtLeast(0f)
             if (excess > 0f) {
                 be.addHeat(PowerConstants.heatGainPerTick(be.heat.toInt(), excess))
@@ -69,28 +65,29 @@ class VoltageStabilizerBlockEntity(
                 be.coolDown(PowerConstants.HEAT_COOL_PER_TICK)
             }
 
-            // Reset input for next tick
+            // Forward output power to linked machines
+            if (be.linkedPositions.isNotEmpty() && be.outputWatts > 0f) {
+                val wattsPerMachine = be.outputWatts / be.linkedPositions.size
+                val deadLinks = mutableListOf<BlockPos>()
+                be.linkedPositions.forEach { linkedPos ->
+                    when (val linkedBe = world.getBlockEntity(linkedPos)) {
+                        is CrusherBlockEntity -> linkedBe.inputWatts += wattsPerMachine
+                        null -> deadLinks.add(linkedPos)
+                    }
+                }
+                deadLinks.forEach { be.removeLinkedPos(it) }
+            }
+
             be.inputWatts = 0f
 
             if (be.isExploding()) {
-                explode(world, pos)
+                world.removeBlock(pos, false)
+                world.createExplosion(null, pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, 3.0f, World.ExplosionSourceType.TNT)
                 return
             }
 
             be.markDirty()
             world.updateListeners(pos, state, state, net.minecraft.block.Block.NOTIFY_ALL)
-        }
-
-        private fun explode(world: World, pos: BlockPos) {
-            world.removeBlock(pos, false)
-            world.createExplosion(
-                null,
-                pos.x.toDouble() + 0.5,
-                pos.y.toDouble() + 0.5,
-                pos.z.toDouble() + 0.5,
-                3.0f,
-                World.ExplosionSourceType.TNT
-            )
         }
     }
 }
