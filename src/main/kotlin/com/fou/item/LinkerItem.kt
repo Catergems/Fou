@@ -66,6 +66,12 @@ class LinkerItem(settings: Settings) : Item(settings) {
             return ActionResult.FAIL
         }
 
+        // Target must have a block entity (any machine)
+        if (world.getBlockEntity(pos) == null) {
+            player.sendMessage(Text.literal("§cTarget must be a machine block!"), true)
+            return ActionResult.FAIL
+        }
+
         sourceEntity.addLinkedPos(pos)
         sourceEntity.markDirty()
         clearSource(stack)

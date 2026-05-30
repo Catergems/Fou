@@ -107,11 +107,17 @@ class PowerGeneratorBlockEntity(
                 val deadLinks = mutableListOf<BlockPos>()
                 be.linkedPositions.forEach { linkedPos ->
                     val linkedBe = world.getBlockEntity(linkedPos)
-                    if (linkedBe is VoltageStabilizerBlockEntity) {
-                        linkedBe.inputWatts += wattsPerMachine
-                        be.powerConsumed += wattsPerMachine
-                    } else {
-                        deadLinks.add(linkedPos)
+                    when (linkedBe) {
+                        is VoltageStabilizerBlockEntity -> {
+                            linkedBe.inputWatts += wattsPerMachine
+                            be.powerConsumed += wattsPerMachine
+                        }
+                        is CrusherBlockEntity -> {
+                            linkedBe.inputWatts += wattsPerMachine
+                            be.powerConsumed += wattsPerMachine
+                        }
+                        null -> deadLinks.add(linkedPos) // block no longer exists
+                        // other unknown block entities: keep link but don't consume power
                     }
                 }
                 deadLinks.forEach { be.removeLinkedPos(it) }
