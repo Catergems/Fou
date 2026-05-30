@@ -1,1 +1,8 @@
-{ "variants": { "": { "model": "fou:block/power_generator" } } }
+{
+  "variants": {
+    "facing=north": { "model": "fou:block/power_generator" },
+    "facing=south": { "model": "fou:block/power_generator", "y": 180 },
+    "facing=east":  { "model": "fou:block/power_generator", "y": 90 },
+    "facing=west":  { "model": "fou:block/power_generator", "y": 270 }
+  }
+}

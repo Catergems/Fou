@@ -8,16 +8,43 @@ import net.minecraft.block.entity.BlockEntity
 import net.minecraft.block.entity.BlockEntityTicker
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.entity.player.PlayerEntity
+import net.minecraft.item.ItemPlacementContext
 import net.minecraft.item.ItemStack
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.state.StateManager
+import net.minecraft.state.property.Properties
 import net.minecraft.text.Text
 import net.minecraft.util.ActionResult
+import net.minecraft.util.BlockMirror
+import net.minecraft.util.BlockRotation
 import net.minecraft.util.ItemScatterer
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Direction
 import net.minecraft.world.World
 
 class PowerGeneratorBlock(settings: Settings) : BlockWithEntity(settings) {
+
+    companion object {
+        val FACING = Properties.HORIZONTAL_FACING
+    }
+
+    init {
+        defaultState = stateManager.defaultState.with(FACING, Direction.NORTH)
+    }
+
+    override fun appendProperties(builder: StateManager.Builder<Block, BlockState>) {
+        builder.add(FACING)
+    }
+
+    override fun getPlacementState(ctx: ItemPlacementContext): BlockState =
+        defaultState.with(FACING, ctx.horizontalPlayerFacing.opposite)
+
+    override fun rotate(state: BlockState, rotation: BlockRotation): BlockState =
+        state.with(FACING, rotation.rotate(state.get(FACING)))
+
+    override fun mirror(state: BlockState, mirror: BlockMirror): BlockState =
+        state.rotate(mirror.getRotation(state.get(FACING)))
 
     override fun getCodec(): MapCodec<out BlockWithEntity> = createCodec(::PowerGeneratorBlock)
     override fun getRenderType(state: BlockState): BlockRenderType = BlockRenderType.MODEL
@@ -38,10 +65,8 @@ class PowerGeneratorBlock(settings: Settings) : BlockWithEntity(settings) {
     ): ActionResult {
         if (world.isClient) return ActionResult.PASS
         val be = world.getBlockEntity(pos) as? PowerGeneratorBlockEntity ?: return ActionResult.PASS
-        val hand = net.minecraft.util.Hand.MAIN_HAND
-        val handStack = player.getStackInHand(hand)
+        val handStack = player.getStackInHand(net.minecraft.util.Hand.MAIN_HAND)
 
-        // Sneak + RMB → retrieve fuel
         if (player.isSneaking) {
             val fuel = be.inventory[0]
             if (!fuel.isEmpty) {
@@ -55,7 +80,6 @@ class PowerGeneratorBlock(settings: Settings) : BlockWithEntity(settings) {
             return ActionResult.SUCCESS
         }
 
-        // RMB with fuel → insert
         if (!handStack.isEmpty && isFuel(handStack)) {
             if (!be.inventory[0].isEmpty) {
                 player.sendMessage(Text.literal("§cFuel slot already occupied!"), true)
@@ -68,7 +92,6 @@ class PowerGeneratorBlock(settings: Settings) : BlockWithEntity(settings) {
             return ActionResult.SUCCESS
         }
 
-        // RMB with nothing → show status
         val heatPct  = "%.1f".format(be.heatPercent * 100f)
         val fuelName = if (be.inventory[0].isEmpty) "§7none" else be.inventory[0].name.string
         val status   = if (be.isRunning) "§aRunning §f${be.currentWatts.toInt()}W" else "§cIdle"
@@ -78,11 +101,12 @@ class PowerGeneratorBlock(settings: Settings) : BlockWithEntity(settings) {
         return ActionResult.SUCCESS
     }
 
-    private fun isFuel(stack: ItemStack): Boolean = stack.isOf(net.minecraft.item.Items.COAL)
-            || stack.isOf(net.minecraft.item.Items.CHARCOAL)
-            || stack.isOf(net.minecraft.item.Items.COAL_BLOCK)
-            || stack.isOf(net.minecraft.item.Items.GLOWSTONE_DUST)
-            || stack.isOf(net.minecraft.item.Items.GLOWSTONE)
+    private fun isFuel(stack: ItemStack): Boolean =
+        stack.isOf(net.minecraft.item.Items.COAL)
+        || stack.isOf(net.minecraft.item.Items.CHARCOAL)
+        || stack.isOf(net.minecraft.item.Items.COAL_BLOCK)
+        || stack.isOf(net.minecraft.item.Items.GLOWSTONE_DUST)
+        || stack.isOf(net.minecraft.item.Items.GLOWSTONE)
 
     override fun onStateReplaced(
         state: BlockState, world: ServerWorld, pos: BlockPos, moved: Boolean
