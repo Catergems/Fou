@@ -4,6 +4,7 @@ import com.fou.FouMod
 import com.fou.item.ChiselItem
 import com.fou.item.DrillItem
 import com.fou.item.LeafShearItem
+import com.fou.item.LinkerItem
 import com.fou.item.TotemOfCycleItem
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
@@ -41,6 +42,10 @@ object ModItems {
 
     val LEAF_SHEAR: Item = register("leaf_shear") { settings ->
         LeafShearItem(settings.maxCount(1))
+    }
+
+    val LINKER: Item = register("linker") { settings ->
+        LinkerItem(settings.maxCount(1))
     }
 
     private fun register(name: String, itemFactory: (Item.Settings) -> Item): Item {
