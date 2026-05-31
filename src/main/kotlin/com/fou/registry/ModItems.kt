@@ -2,6 +2,7 @@ package com.fou.registry
 
 import com.fou.FouMod
 import com.fou.item.ChiselItem
+import com.fou.item.CoreMatterItem
 import com.fou.item.DrillItem
 import com.fou.item.LeafShearItem
 import com.fou.item.LinkerItem
@@ -38,6 +39,10 @@ object ModItems {
 
     val CHISEL: Item = register("chisel") { settings ->
         ChiselItem(settings.maxCount(1).maxDamage(256))
+    }
+
+    val CORE_MATTER: Item = register("core_matter") { settings ->
+        CoreMatterItem(settings.maxCount(64))
     }
 
     val LEAF_SHEAR: Item = register("leaf_shear") { settings ->

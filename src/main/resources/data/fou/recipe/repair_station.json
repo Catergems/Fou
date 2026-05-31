@@ -2,19 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "pattern": [
-    "IAI",
+    "IGI",
     "GCG",
-    "SSS"
+    "IGI"
   ],
   "key": {
     "I": "minecraft:iron_ingot",
-    "A": "minecraft:anvil",
-    "G": "minecraft:glowstone_dust",
-    "C": "minecraft:crafting_table",
-    "S": "minecraft:smooth_stone"
+    "G": "minecraft:gold_ingot",
+    "C": "fou:core_matter"
   },
-  "result": {
-    "id": "fou:repair_station",
-    "count": 1
-  }
+  "result": { "id": "fou:repair_station", "count": 1 }
 }

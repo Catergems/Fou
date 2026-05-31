@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "LGL",
+    "GRG",
+    "LGL"
+  ],
+  "key": {
+    "L": "minecraft:lapis_lazuli",
+    "G": "minecraft:gold_ingot",
+    "R": "minecraft:redstone"
+  },
+  "result": { "id": "fou:core_matter", "count": 1 }
+}

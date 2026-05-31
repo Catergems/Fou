@@ -21,6 +21,7 @@ object ModItemGroups {
                 entries.add(ModItems.POWER_GENERATOR)
                 entries.add(ModItems.VOLTAGE_STABILIZER)
                 entries.add(ModItems.CRUSHER)
+                entries.add(ModItems.CORE_MATTER)
                 entries.add(ModItems.TOTEM_OF_CYCLE)
                 entries.add(ModItems.DRILL)
                 entries.add(ModItems.CHISEL)

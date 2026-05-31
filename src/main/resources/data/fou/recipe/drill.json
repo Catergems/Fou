@@ -3,17 +3,14 @@
   "category": "misc",
   "pattern": [
     "GBG",
-    "GPG",
+    "GCG",
     "III"
   ],
   "key": {
     "G": "minecraft:gold_ingot",
     "B": "minecraft:iron_block",
-    "P": "minecraft:diamond_pickaxe",
+    "C": "fou:core_matter",
     "I": "minecraft:iron_ingot"
   },
-  "result": {
-    "id": "fou:drill",
-    "count": 1
-  }
+  "result": { "id": "fou:drill", "count": 1 }
 }
