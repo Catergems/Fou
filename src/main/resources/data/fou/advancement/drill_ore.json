@@ -18,7 +18,7 @@
     "mine_ore": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "items": [{ "items": "#minecraft:ores" }]
+        "items": [{ "items": "#minecraft:raw_materials" }]
       }
     }
   },
