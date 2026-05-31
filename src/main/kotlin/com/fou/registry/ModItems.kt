@@ -53,6 +53,10 @@ object ModItems {
         LinkerItem(settings.maxCount(1))
     }
 
+    val COOLANT_BLOCK: Item = register("coolant_block") { settings ->
+        BlockItem(ModBlocks.COOLANT_BLOCK, settings)
+    }
+
     val CRUSHER: Item = register("crusher") { settings ->
         BlockItem(ModBlocks.CRUSHER, settings)
     }

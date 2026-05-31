@@ -1,6 +1,7 @@
 package com.fou.registry
 
 import com.fou.FouMod
+import com.fou.blockentity.CoolantBlockEntity
 import com.fou.blockentity.CrusherBlockEntity
 import com.fou.blockentity.PowerGeneratorBlockEntity
 import com.fou.blockentity.RepairStationBlockEntity
@@ -26,6 +27,11 @@ object ModBlockEntities {
     val VOLTAGE_STABILIZER: BlockEntityType<VoltageStabilizerBlockEntity> = register(
         "voltage_stabilizer",
         FabricBlockEntityTypeBuilder.create(::VoltageStabilizerBlockEntity, ModBlocks.VOLTAGE_STABILIZER).build()
+    )
+
+    val COOLANT_BLOCK: BlockEntityType<CoolantBlockEntity> = register(
+        "coolant_block",
+        FabricBlockEntityTypeBuilder.create(::CoolantBlockEntity, ModBlocks.COOLANT_BLOCK).build()
     )
 
     val CRUSHER: BlockEntityType<CrusherBlockEntity> = register(
