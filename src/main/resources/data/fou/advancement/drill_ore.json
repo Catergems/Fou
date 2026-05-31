@@ -18,7 +18,20 @@
     "mine_ore": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
-        "items": [{ "items": "#minecraft:raw_materials" }]
+        "items": [{
+          "items": [
+            "minecraft:raw_iron",
+            "minecraft:raw_gold",
+            "minecraft:raw_copper",
+            "minecraft:diamond",
+            "minecraft:emerald",
+            "minecraft:lapis_lazuli",
+            "minecraft:redstone",
+            "minecraft:coal",
+            "minecraft:quartz",
+            "minecraft:ancient_debris"
+          ]
+        }]
       }
     }
   },
